@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "7fNXuBoeDuPZq8/KFqQ6d55HWjJxU5DMLEKSJQ/c2ck2rqVpl7mMbgxa75BIVVgEyVTs2V3hMu7HX+iR78a62A==",
+  "dgSpecHash": "Xd7pPAVlrfT6hwkJsBDuHq4MwP88eizecHOm1CUc9kPL/BkM6ueJyNS12VptAEwdDP9Jc5sEAR2XAuQ5R1M3qQ==",
   "success": true,
   "projectFilePath": "C:\\ocph23\\aji\\sispakcf\\MainApp\\Sispakcf\\Sispakcf.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ocph2\\.nuget\\packages\\communitytoolkit.maui\\1.2.0\\communitytoolkit.maui.1.2.0.nupkg.sha512",
+    "C:\\Users\\ocph2\\.nuget\\packages\\communitytoolkit.maui.core\\1.2.0\\communitytoolkit.maui.core.1.2.0.nupkg.sha512",
+    "C:\\Users\\ocph2\\.nuget\\packages\\communitytoolkit.mvvm\\8.0.0\\communitytoolkit.mvvm.8.0.0.nupkg.sha512",
     "C:\\Users\\ocph2\\.nuget\\packages\\googlegson\\2.9.0.1\\googlegson.2.9.0.1.nupkg.sha512",
     "C:\\Users\\ocph2\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.1\\microsoft.extensions.configuration.6.0.1.nupkg.sha512",
     "C:\\Users\\ocph2\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

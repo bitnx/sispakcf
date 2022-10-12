@@ -6,7 +6,8 @@
 
        public Gejala Gejala { get; set; }
 
-       public double  MB { get; set; }    
-       public double MD { get; set; } 
+       public double  CF { get; set; }
+       
+
     }
 }

@@ -27,6 +27,42 @@ build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
+[C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/DiagnosaPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.DiagnosaPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\DiagnosaPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\DiagnosaPage.xaml
+
+[C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\LoginPage.xaml
+
+[C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/LogoutPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.LogoutPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\LogoutPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\LogoutPage.xaml
+
+[C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/ProfilePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.ProfilePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\ProfilePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\ProfilePage.xaml
+
+[C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/RegisterPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.RegisterPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\RegisterPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\RegisterPage.xaml
+
+[C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/RiwayatPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.RiwayatPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\RiwayatPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\RiwayatPage.xaml
+
 [C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Resources.Styles.Colors.xaml

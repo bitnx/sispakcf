@@ -27,23 +27,24 @@
                             <MudText Class="mt-1">@item.Nama</MudText>
                             <div>
                                 <MudIconButton OnClick="@(()=>AddPengetahuan(item))" Icon="@Icons.Material.Filled.Add" Color="Color.Default" />
+                                <MudIconButton OnClick="@(()=>Edit(item))" Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" />
                             </div>
                         </div>
                     </TitleContent>
                     <ChildContent>
                         <table class="table table-bordered" style="width:100%; margin-left:30px; margin-right:30px">
                                 <tr>
-                                    <th>Nama Gejala</th>
-                                    <th style="width:100px">MB</th>
-                                    <th style="width:100px">MD</th>
+                                <th>Kode</th>
+                                <th>Nama Gejala</th>
+                                    <th style="width:100px">CF</th>
                                     <th style="width:150px">Aksi</th>
                                 </tr>
                             @foreach (var pengetahuan in item.BasisPengetahuan)
                             {
                                 <tr>
+                                    <td>@pengetahuan.Gejala.Kode</td>
                                     <td>@pengetahuan.Gejala.Nama</td>
-                                    <td>@pengetahuan.MB</td>
-                                    <td>@pengetahuan.MD</td>
+                                    <td>@pengetahuan.CF</td>
                                     <td>
                                         <MudIconButton OnClick="@(()=>EditPengetahuan(pengetahuan))" Icon="@Icons.Material.Filled.Edit" Color="Color.Warning"></MudIconButton>
                                         <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"></MudIconButton>

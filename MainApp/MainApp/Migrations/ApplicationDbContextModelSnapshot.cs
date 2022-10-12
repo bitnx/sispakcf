@@ -54,6 +54,9 @@ namespace MainApp.Migrations
                     b.Property<int?>("KonsultasiId")
                         .HasColumnType("int");
 
+                    b.Property<int>("NilaiPilihan")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GejalaId");
@@ -124,14 +127,11 @@ namespace MainApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<double>("CF")
+                        .HasColumnType("double");
+
                     b.Property<int>("GejalaId")
                         .HasColumnType("int");
-
-                    b.Property<double>("MB")
-                        .HasColumnType("double");
-
-                    b.Property<double>("MD")
-                        .HasColumnType("double");
 
                     b.Property<int?>("SolusiId")
                         .HasColumnType("int");

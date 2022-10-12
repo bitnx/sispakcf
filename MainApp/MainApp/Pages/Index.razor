@@ -5,3 +5,28 @@
 
 
 Index Page
+
+
+@inject Perhitungan perhitungan
+
+
+@code{
+    protected override Task OnInitializedAsync()
+    {
+        var jawabPasien = new List<Jawaban>() {
+            new Jawaban(){ NilaiPilihan = Pilihan.Mungkin, Gejala= new Gejala{ Id = 1} },
+            new Jawaban(){ NilaiPilihan = Pilihan.KemungkinanBesar, Gejala= new Gejala{ Id = 6} },
+            new Jawaban(){ NilaiPilihan = Pilihan.Pasti, Gejala= new Gejala{ Id = 11} },
+            new Jawaban(){ NilaiPilihan = Pilihan.HampirPasti, Gejala= new Gejala{ Id = 13} },
+            new Jawaban(){ NilaiPilihan = Pilihan.TidakTahu, Gejala= new Gejala{ Id = 15} },
+            };
+
+        var results=perhitungan.Hitung(jawabPasien);
+
+        return base.OnInitializedAsync();
+    }
+
+
+
+
+}
