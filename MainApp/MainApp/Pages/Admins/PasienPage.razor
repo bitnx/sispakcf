@@ -1,0 +1,75 @@
+﻿@page "/pasien"
+@using Microsoft.EntityFrameworkCore
+
+@inject ISnackbar Snackbar
+@inject ApplicationDbContext dbcontext
+@inject IDialogService DialogService
+<div class="page">
+    <h3>Data Pasien</h3>
+    <MudTable Items="@Pasiens" Hover="true" ReadOnly="true" Filter="new Func<Pasien,bool>(FilterFunc)"
+              @bind-SelectedItem="selectedItem1" SortLabel="Sort By"
+              ApplyButtonPosition="@applyButtonPosition">
+        <ToolBarContent>
+            <div>
+                <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+                    <MudButton StartIcon="@Icons.Material.Filled.Print" IconColor="Color.Info"></MudButton>
+                </MudButtonGroup>
+            </div>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+
+        <HeaderContent>
+            <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Nama)">Nama</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Umur)">Umur</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Pekerjaan)">Pekerjaan</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Email)">Email</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Telepon)">Telepon</MudTableSortLabel></MudTh>
+            <MudTh Style="width:100px">Aksi</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nama">@context.Umur</MudTd>
+            <MudTd DataLabel="Keterangan">@context.Pekerjaan</MudTd>
+            <MudTd DataLabel="Aksi">
+              @*  <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+                    <MudIconButton OnClick="@(()=>Edit(context))" Icon="@Icons.Material.Filled.Edit" IconColor="Color.Warning"></MudIconButton>
+                    <MudButton OnClick="@(()=>Delete(context))" StartIcon="@Icons.Material.Filled.Delete" IconColor="Color.Error"></MudButton>
+                </MudButtonGroup>*@
+            </MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+
+</div>
+@code {
+    private string searchString = "";
+    private Pasien selectedItem1 = null;
+    private HashSet<Pasien> selectedItems1 = new HashSet<Pasien>();
+    private TableApplyButtonPosition applyButtonPosition = TableApplyButtonPosition.Start;
+    private ICollection<Pasien> Pasiens = new List<Pasien>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Pasiens = dbcontext.Pasien
+        .Include(x => x.Konsultasi)
+        .ThenInclude(x => x.GejalaPasien)
+        .ToList();
+    }
+
+
+
+    private bool FilterFunc(Pasien element)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Nama.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Alamat.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Pekerjaan.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+}

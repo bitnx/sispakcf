@@ -1,0 +1,139 @@
+﻿@page "/gejala"
+
+@inject ISnackbar Snackbar
+@inject ApplicationDbContext dbcontext
+@inject IDialogService DialogService
+<div class="page">
+    <h3>Data Gejala</h3>
+    <MudTable Items="@Gejalas" Hover="true" ReadOnly="true" Filter="new Func<Gejala,bool>(FilterFunc)"
+              @bind-SelectedItem="selectedItem1" SortLabel="Sort By"
+              ApplyButtonPosition="@applyButtonPosition">
+        <ToolBarContent>
+            <div>
+                <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+                    <MudButton OnClick="Add" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Success"></MudButton>
+                    <MudButton StartIcon="@Icons.Material.Filled.Print" IconColor="Color.Info"></MudButton>
+                </MudButtonGroup>
+            </div>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+
+        <HeaderContent>
+            <MudTh><MudTableSortLabel SortBy="new Func<Gejala, object>(x=>x.Kode)">Kode</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Gejala, object>(x=>x.Nama)">Nama</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Gejala, object>(x=>x.Keterangan)">Keterangan</MudTableSortLabel></MudTh>
+            <MudTh Style="width:100px">Aksi</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Id">@context.Kode</MudTd>
+            <MudTd DataLabel="Nama">@context.Nama</MudTd>
+            <MudTd DataLabel="Keterangan">@context.Keterangan</MudTd>
+            <MudTd DataLabel="Aksi">
+                <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+                    <MudIconButton OnClick="@(()=>Edit(context))" Icon="@Icons.Material.Filled.Edit" IconColor="Color.Warning"></MudIconButton>
+                    <MudButton OnClick="@(()=>Delete(context))" StartIcon="@Icons.Material.Filled.Delete" IconColor="Color.Error"></MudButton>
+                </MudButtonGroup>
+            </MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+
+</div>
+@code {
+    private string searchString = "";
+    private Gejala selectedItem1 = null;
+    private HashSet<Gejala> selectedItems1 = new HashSet<Gejala>();
+    private TableApplyButtonPosition applyButtonPosition = TableApplyButtonPosition.Start;
+    private ICollection<Gejala> Gejalas = new List<Gejala>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Gejalas = dbcontext.Gejala.ToList();
+    }
+
+    async Task Add()
+    {
+        var parameters = new DialogParameters { ["model"] = new Gejala()};
+        var dialog = DialogService.Show<EditGejalaDialog>("Tambah", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            try
+            {
+                var item = result.Data as Gejala;
+                dbcontext.Gejala.Add(item);
+                dbcontext.SaveChanges();
+                Gejalas.Add(item);
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+
+        }
+    }
+
+
+    async Task Edit(Gejala model)
+    {
+        var parameters = new DialogParameters { ["model"] =model };
+        var dialog = DialogService.Show<EditGejalaDialog>("Tambah", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            try
+            {
+                var item = result.Data as Gejala;
+                dbcontext.SaveChanges();
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+
+        }
+    }
+
+    async Task Delete(Gejala model){
+        var parameters = new DialogParameters();
+        parameters.Add("ContentText", "Yakin Hapus Data !.");
+        parameters.Add("ButtonText", "Delete");
+        parameters.Add("Color", Color.Error);
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+        var dialog = DialogService.Show<DeleteDialog>("Delete", parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        { 
+            try
+            {
+                dbcontext.Gejala.Remove(model);
+                dbcontext.SaveChanges();
+                Gejalas.Remove(model);
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }   
+        }
+    }
+
+
+    private bool FilterFunc(Gejala element)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Kode.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+            if (element.Nama.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Keterangan.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+}

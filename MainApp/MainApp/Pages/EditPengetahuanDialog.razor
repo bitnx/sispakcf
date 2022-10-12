@@ -1,0 +1,53 @@
+﻿@inject ISnackbar Snackbar
+@inject ApplicationDbContext dbcontext
+
+<MudDialog Style="width:400px; padding:30px">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.EditAttributes" Class="mr-3 mb-n1" />
+            Tambah/Edit Pengetahuan
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudSelect T="Gejala" @bind-Value="@model.Gejala" ToStringFunc="@converter" 
+        Label="Pilih Gejala" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined" Clearable>
+        @foreach (var gejala in gejalas)
+        {
+             <MudSelectItem Value="@gejala" />
+        }  
+          
+        </MudSelect>
+        <MudNumericField Max="1" Min="-1" Step="0.1" @bind-Value="@model.MB" Label="MB" />
+        <MudNumericField Max="1" Min="-1" Step="0.1" @bind-Value="@model.MD" Label="MD" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="Simpan">Simpan</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public Pengetahuan model { get; set; } = new Pengetahuan();
+
+    ICollection<Gejala> gejalas;
+
+    Func<Gejala, string> converter = p => $"{p?.Kode} - {p?.Nama}";
+
+
+    protected override Task OnInitializedAsync()
+    {
+        gejalas = dbcontext.Gejala.ToList();
+
+        return base.OnInitializedAsync();
+    }
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Simpan()
+    {
+        MudDialog.Close(DialogResult.Ok(model));
+    }
+}

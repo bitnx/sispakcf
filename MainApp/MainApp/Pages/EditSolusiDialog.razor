@@ -1,0 +1,33 @@
+﻿
+@inject ISnackbar Snackbar
+
+<MudDialog Style="width:400px; padding:30px">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.EditAttributes" Class="mr-3 mb-n1"/>
+            Tambah/Edit Solusi
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="@model.Nama" Label="Nama Solusi" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="Simpan">Simpan</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public Solusi model { get; set; } = new Solusi();
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Simpan()
+    {
+        MudDialog.Close(DialogResult.Ok(model));
+    }
+}

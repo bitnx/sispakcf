@@ -1,0 +1,195 @@
+﻿@page "/solusi"
+@using Microsoft.EntityFrameworkCore
+
+
+@inject ISnackbar Snackbar
+@inject ApplicationDbContext dbcontext
+@inject IDialogService DialogService
+<div class="page">
+    <h3>Data Solusi</h3>
+    <div style="display:flex;justify-content:space-between">
+        <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+            <MudButton OnClick="Add" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Success"></MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Print" IconColor="Color.Info"></MudButton>
+        </MudButtonGroup>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </div>
+
+    <div class="mx-auto" style="width: 100%;">
+        <MudExpansionPanels>
+            @foreach (var item in Solusis)
+            {
+                <MudExpansionPanel HideIcon="true">
+                    <TitleContent>
+                        <div class="d-flex" style="justify-content:space-between">
+                            <MudText Class="mt-1">@item.Nama</MudText>
+                            <div>
+                                <MudIconButton OnClick="@(()=>AddPengetahuan(item))" Icon="@Icons.Material.Filled.Add" Color="Color.Default" />
+                            </div>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        <table class="table table-bordered" style="width:100%; margin-left:30px; margin-right:30px">
+                                <tr>
+                                    <th>Nama Gejala</th>
+                                    <th style="width:100px">MB</th>
+                                    <th style="width:100px">MD</th>
+                                    <th style="width:150px">Aksi</th>
+                                </tr>
+                            @foreach (var pengetahuan in item.BasisPengetahuan)
+                            {
+                                <tr>
+                                    <td>@pengetahuan.Gejala.Nama</td>
+                                    <td>@pengetahuan.MB</td>
+                                    <td>@pengetahuan.MD</td>
+                                    <td>
+                                        <MudIconButton OnClick="@(()=>EditPengetahuan(pengetahuan))" Icon="@Icons.Material.Filled.Edit" Color="Color.Warning"></MudIconButton>
+                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"></MudIconButton>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </ChildContent>
+                </MudExpansionPanel>
+            }
+        </MudExpansionPanels>
+    </div>
+
+</div>
+@code {
+    bool isOpen;
+    private string searchString = "";
+    private Solusi selectedItem1 = null;
+    private HashSet<Solusi> selectedItems1 = new HashSet<Solusi>();
+    private TableApplyButtonPosition applyButtonPosition = TableApplyButtonPosition.Start;
+    private ICollection<Solusi> Solusis = new List<Solusi>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Solusis = dbcontext.Solusi.Include(x=>x.BasisPengetahuan).ThenInclude(x=>x.Gejala).ToList();
+    }
+
+    async Task Add()
+    {
+        var parameters = new DialogParameters { ["model"] = new Solusi() };
+        var dialog = DialogService.Show<EditSolusiDialog>("Tambah", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            try
+            {
+                var item = result.Data as Solusi;
+                dbcontext.Solusi.Add(item);
+                dbcontext.SaveChanges();
+                Solusis.Add(item);
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+
+        }
+    }
+
+
+    async Task Edit(Solusi model)
+    {
+        var parameters = new DialogParameters { ["model"] = model };
+        var dialog = DialogService.Show<EditSolusiDialog>("Tambah", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            try
+            {
+                var item = result.Data as Solusi;
+                dbcontext.SaveChanges();
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+
+        }
+    }
+
+    async Task Delete(Solusi model)
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("ContentText", "Yakin Hapus Data !.");
+        parameters.Add("ButtonText", "Delete");
+        parameters.Add("Color", Color.Error);
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+        var dialog = DialogService.Show<DeleteDialog>("Delete", parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            try
+            {
+                dbcontext.Solusi.Remove(model);
+                dbcontext.SaveChanges();
+                Solusis.Remove(model);
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+        }
+    }
+
+
+    async Task AddPengetahuan(Solusi solusi)
+    {
+        var parameters = new DialogParameters { ["model"] = new Pengetahuan() };
+        var dialog = DialogService.Show<EditPengetahuanDialog>("Tambah", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            try
+            {
+                var item = result.Data as Pengetahuan;
+                solusi.BasisPengetahuan.Add(item);
+                dbcontext.SaveChanges();
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+        }
+    }
+
+    async Task EditPengetahuan(Pengetahuan pengetahuan)
+    {
+        var parameters = new DialogParameters { ["model"] = pengetahuan };
+        var dialog = DialogService.Show<EditPengetahuanDialog>("Edit", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            try
+            {
+                var item = result.Data as Pengetahuan;
+                dbcontext.SaveChanges();
+                Snackbar.Add("Berhasil !", Severity.Info);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+        }
+    }
+
+
+    private bool FilterFunc(Solusi element)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Nama.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+}
