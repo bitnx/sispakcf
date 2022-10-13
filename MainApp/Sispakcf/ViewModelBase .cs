@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Sispakcf.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,8 @@ namespace Sispakcf
     public class ViewModelBase : ObservableObject
     {
         public AccountService Account => DependencyService.Get<AccountService>();
-        public AlatKontrasepsiService AlatKotrasepsi => DependencyService.Get<AlatKontrasepsiService>();
-        public PengajuanService Pengajuan => DependencyService.Get<PengajuanService>();
-        public PesertaService Peserta => DependencyService.Get<PesertaService>();
+        public PasienService Pasien => DependencyService.Get<PasienService>();
+        public SulusiAndGejalaService SolusiAndGejala => DependencyService.Get<SulusiAndGejalaService>();
 
         private string title;
 

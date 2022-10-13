@@ -51,7 +51,8 @@
         Mungkin,
         KemungkinanBesar,
         HampirPasti,
-        Pasti
+        Pasti,
+        None
 
     }
 }

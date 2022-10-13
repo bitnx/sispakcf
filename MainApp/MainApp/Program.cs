@@ -15,8 +15,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if (builder.Environment.EnvironmentName == "Production")
-    builder.WebHost.UseUrls("http://localhost:5028");
+//if (builder.Environment.EnvironmentName == "Production")
+//    builder.WebHost.UseUrls("http://localhost:5028");
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

@@ -4,6 +4,9 @@
 @inject ISnackbar Snackbar
 @inject ApplicationDbContext dbcontext
 @inject IDialogService DialogService
+@inject IJSRuntime Js
+
+
 <div class="page">
     <h3>Data Pasien</h3>
     <MudTable Items="@Pasiens" Hover="true" ReadOnly="true" Filter="new Func<Pasien,bool>(FilterFunc)"
@@ -12,7 +15,7 @@
         <ToolBarContent>
             <div>
                 <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
-                    <MudButton StartIcon="@Icons.Material.Filled.Print" IconColor="Color.Info"></MudButton>
+                    <MudButton OnClick="@(()=> Js.InvokeVoidAsync("doPrint"))" StartIcon="@Icons.Material.Filled.Print" IconColor="Color.Info"></MudButton>
                 </MudButtonGroup>
             </div>
             <MudSpacer />
@@ -25,22 +28,29 @@
             <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Pekerjaan)">Pekerjaan</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Email)">Email</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<Pasien, object>(x=>x.Telepon)">Telepon</MudTableSortLabel></MudTh>
-            <MudTh Style="width:100px">Aksi</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Nama">@context.Umur</MudTd>
-            <MudTd DataLabel="Keterangan">@context.Pekerjaan</MudTd>
-            <MudTd DataLabel="Aksi">
-              @*  <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
-                    <MudIconButton OnClick="@(()=>Edit(context))" Icon="@Icons.Material.Filled.Edit" IconColor="Color.Warning"></MudIconButton>
-                    <MudButton OnClick="@(()=>Delete(context))" StartIcon="@Icons.Material.Filled.Delete" IconColor="Color.Error"></MudButton>
-                </MudButtonGroup>*@
-            </MudTd>
+            <MudTd DataLabel="Nama">@context.Nama</MudTd>
+            <MudTd DataLabel="Umur">@context.Umur</MudTd>
+            <MudTd DataLabel="Pekerjaan">@context.Pekerjaan</MudTd>
+            <MudTd DataLabel="Email">@context.Pekerjaan</MudTd>
+            <MudTd DataLabel="Telepon">@context.Pekerjaan</MudTd>
         </RowTemplate>
         <PagerContent>
             <MudTablePager />
         </PagerContent>
     </MudTable>
+
+
+
+
+    <div>
+
+    </div>
+
+
+
+
 
 </div>
 @code {

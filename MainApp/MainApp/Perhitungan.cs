@@ -6,24 +6,6 @@ using System.Diagnostics;
 
 namespace MainApp
 {
-
-    public class PreparePerhitungan
-    {
-        public PreparePerhitungan()
-        {
-            var jawabPasien = new List<Jawaban>() {  
-            new Jawaban(){ NilaiPilihan = Pilihan.HampirPasti, Gejala= new Gejala{ Id = 1} },
-            new Jawaban(){ NilaiPilihan = Pilihan.Pasti, Gejala= new Gejala{ Id = 2} },
-            new Jawaban(){ NilaiPilihan = Pilihan.TidakPasti, Gejala= new Gejala{ Id = 4} },
-            };    
-        }
-        
-
-
-    }
-
-
-
     public class Perhitungan
     {
         private ApplicationDbContext dbcontext;
@@ -33,9 +15,10 @@ namespace MainApp
             dbcontext = _dbcontext;
         }
 
-        public ArrayList Hitung(List<Jawaban> jawabans)
+        public IEnumerable<Hasil> Hitung(List<Jawaban> jawabans)
         {
             var odds = new ArrayList();
+            ICollection<Hasil> hasils = new  List<Hasil>();
             var solusis = dbcontext.Solusi.Include(x => x.BasisPengetahuan).ThenInclude(x => x.Gejala).ToList();
             foreach (var solusi in solusis)
             {
@@ -75,9 +58,9 @@ namespace MainApp
                 Debug.WriteLine($"S1 ={odd}");
                 Debug.WriteLine($"\r\r");
                 odds.Add(odd);
+                hasils.Add(new Hasil(solusi, odd));
             }
-
-            return odds;
+            return hasils;
         }
     }
 }

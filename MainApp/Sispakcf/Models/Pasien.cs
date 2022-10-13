@@ -1,17 +1,31 @@
-﻿namespace Sispakcf.Models
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace Sispakcf.Models
 {
-    public class Pasien
+    public partial class Pasien:ObservableObject
     {
         public int Id { get; set; }
-        public string Nama { get; set; }
-        public string Email { get; set; }
-        public string Alamat { get; set; }
-        public DateTime TanggalLahir { get; set; }
-        public string Pekerjaan { get; set; }
-        public int Telepon { get; set; }
+        
+        [ObservableProperty]
+        private string nama;
+        
+        [ObservableProperty]
+        private string email;
+        
+        [ObservableProperty]
+        private string alamat;
+        
+        [ObservableProperty]
+        private DateTime tanggalLahir;
+        
+        [ObservableProperty]
+        private string pekerjaan;
+        
+        [ObservableProperty]
+        private string telepon;
         public int Umur => DateTime.Now.Year - TanggalLahir.Year;
-        public ICollection<Konsultasi> Konsultasi { get; set; }   =new List<Konsultasi>();
-        public string? UserId { get; set; }
+        public ICollection<Konsultasi> Konsultasi { get; set; } = new List<Konsultasi>();
+        public string? UserId { get; set; } 
 
     }
 }

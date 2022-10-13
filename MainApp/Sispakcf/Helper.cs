@@ -1,4 +1,6 @@
 ﻿using Microsoft.Maui.Accessibility;
+using Sispakcf.Models;
+using Sispakcf.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,27 @@ namespace Sispakcf
 {
     internal class Helper
     {
-        //public static string Url { get; internal set; } = "http://192.168.1.15/";
-        public static string Url { get; internal set; } = "https://kontrasepsikb.ocphapp.tech/";
+        public static string Url { get; internal set; } = "http://192.168.1.5/";
+       // public static string Url { get; internal set; } = "https://kontrasepsikb.ocphapp.tech/";
         public static JsonSerializerOptions JsonOptions = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         };
+
+
+
+        public static Pasien GetProfile()
+        {
+            var modelString = Preferences.Get("pasien", null);
+
+            if (!string.IsNullOrEmpty(modelString))
+            {
+                return JsonSerializer.Deserialize<Pasien>(modelString, Helper.JsonOptions);
+            }
+
+            return null;
+
+        }
 
         internal static async Task SetPage(Page loginPage)
         {

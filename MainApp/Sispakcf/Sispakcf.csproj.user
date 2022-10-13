@@ -20,6 +20,9 @@
     <MauiXaml Update="Pages\DiagnosaPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Pages\HasilPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

@@ -33,6 +33,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.DiagnosaPag
 build_metadata.AdditionalFiles.TargetPath = Pages\DiagnosaPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Pages\DiagnosaPage.xaml
 
+[C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/HasilPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.HasilPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\HasilPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\HasilPage.xaml
+
 [C:/ocph23/aji/sispakcf/MainApp/Sispakcf/Pages/LoginPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Sispakcf.Pages.LoginPage.xaml

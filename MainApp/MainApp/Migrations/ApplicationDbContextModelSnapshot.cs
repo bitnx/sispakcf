@@ -110,8 +110,9 @@ namespace MainApp.Migrations
                     b.Property<DateTime>("TanggalLahir")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Telepon")
-                        .HasColumnType("int");
+                    b.Property<string>("Telepon")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .HasColumnType("longtext");

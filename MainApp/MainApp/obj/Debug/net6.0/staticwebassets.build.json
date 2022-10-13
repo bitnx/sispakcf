@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/5GunDwbjLXggqSSKwNFYD80OclXd8b015VTBwVmZvE=",
+  "Hash": "SH0p5+Ftb6dV3RT+6cK6LO/ce77XEMOic+7Jcmw+dPE=",
   "Source": "MainApp",
   "BasePath": "_content/MainApp",
   "Mode": "Default",
@@ -270,6 +270,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\ocph23\\aji\\sispakcf\\MainApp\\MainApp\\wwwroot\\site.js",
+      "SourceId": "MainApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\ocph23\\aji\\sispakcf\\MainApp\\MainApp\\wwwroot\\",
+      "BasePath": "_content/MainApp",
+      "RelativePath": "site.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\site.js"
     },
     {
       "Identity": "C:\\Users\\ocph2\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\6.0.10\\staticwebassets\\V5\\css\\site.css",

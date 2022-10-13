@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Sispakcf.Pages.LogoutPage"
-             Title="LogoutPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="Sispakcf.Pages.LogoutPage">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout VerticalOptions="Center">
+            <Label  FontSize="20" Text="Yakin Keluar ?"
+                HorizontalOptions="CenterAndExpand" />
+            <Button  HeightRequest="45" TextColor="White" Text="Logout" Margin="50" 
+                   Clicked="logoutClick"></Button>
+            </StackLayout>
+        </Grid>
+
+    </ContentPage.Content>
 </ContentPage>

@@ -2,11 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sispakcf.Pages.DiagnosaPage"
-             Title="DiagnosaPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Name="mypage"
+             Title="Diagnosa">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="20">
+                <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+                    <CollectionView ItemsSource="{Binding Jawabans}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="5">
+                                    <StackLayout>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Gejala.Kode}"></Span>
+                                                    <Span Text=" - "></Span>
+                                                    <Span Text="{Binding Gejala.Nama}"></Span>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <HorizontalStackLayout >
+                                            <Label Text="Jawaban : " VerticalOptions="CenterAndExpand"></Label>
+                                            <Picker WidthRequest="300" HorizontalOptions="EndAndExpand" 
+                                                    SelectedItem="{Binding NilaiPilihan}" 
+                                                    BackgroundColor="WhiteSmoke" ItemsSource="{Binding Source={x:Reference mypage}, Path=BindingContext.Pilihans}"></Picker>
+                                        </HorizontalStackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+                <ActivityIndicator IsVisible="{Binding IsBusy}" />
+                <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                <Button Text="Submit" Margin="5" Command="{Binding SubmitCommand}"></Button>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

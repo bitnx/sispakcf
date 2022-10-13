@@ -22,7 +22,7 @@ namespace Sispakcf.Services
             try
             {
                 using var rest = new RestService();
-                var response = await rest.PostAsync("/api/pesertas", rest.GenerateHttpContent(model));
+                var response = await rest.PostAsync("/api/pasiens", rest.GenerateHttpContent(model));
                 var stringData = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
@@ -68,11 +68,11 @@ namespace Sispakcf.Services
                         Preferences.Set("userName", result.UserName);
                         _=GetProfile();
                     }
-                    return true;
+                        return true;
                 }
 
-                var errorMessage = JsonSerializer.Deserialize<ErrorMessage>(stringData, Helper.JsonOptions);
-                throw new SystemException($"{errorMessage.Status} - {errorMessage.Title} - {errorMessage?.Detail}");
+                throw await Helper.ErrorHandle(response);
+
             }
             catch (Exception ex)
             {
@@ -90,12 +90,11 @@ namespace Sispakcf.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var result = JsonSerializer.Deserialize<Pasien>(stringData);
-                    Preferences.Set("peserta", stringData);
+                    Preferences.Set("pasien", stringData);
                     return result;
                 }
 
-                var errorMessage = JsonSerializer.Deserialize<ErrorMessage>(stringData, Helper.JsonOptions);
-                throw new SystemException($"{errorMessage.Status} - {errorMessage.Title} - {errorMessage?.Detail}");
+                throw await Helper.ErrorHandle(response);
             }
             catch (Exception ex)
             {
@@ -109,7 +108,7 @@ namespace Sispakcf.Services
             Preferences.Set("token", null);
             Preferences.Set("userName", null);
             Preferences.Set("account", null);
-            Preferences.Set("peserta", null);
+            Preferences.Set("pasien", null);
             Application.Current.MainPage = new LoginPage();
             return Task.CompletedTask;
 
@@ -127,7 +126,7 @@ namespace Sispakcf.Services
                 {
                     return;
                 }
-                await  Helper.ErrorHandle(response);
+               throw await  Helper.ErrorHandle(response);
             }
             catch (Exception ex)
             {
