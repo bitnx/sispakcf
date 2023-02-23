@@ -30,7 +30,7 @@ namespace MainApp
                 {
                     var g = solusi.BasisPengetahuan.ToArray()[index];
                     double bobot = 0;
-                    var jawab = jawabans.FirstOrDefault(x => x.Gejala.Id == g.Id);
+                    var jawab = jawabans.FirstOrDefault(x => x.Gejala.Id == g.Gejala.Id);
                     if (jawab != null)
                     {
                         bobot = jawab.NilaiAngka;
